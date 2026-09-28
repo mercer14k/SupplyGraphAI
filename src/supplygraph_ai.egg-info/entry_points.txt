@@ -1,0 +1,3 @@
+[console_scripts]
+supplygraph-benchmark = supplygraph.evaluation.benchmark:main
+supplygraph-generate = supplygraph.data.generator:main

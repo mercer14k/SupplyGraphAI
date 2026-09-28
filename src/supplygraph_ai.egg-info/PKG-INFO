@@ -1,0 +1,250 @@
+Metadata-Version: 2.4
+Name: supplygraph-ai
+Version: 0.1.0
+Summary: Evidence-first, local-first supply-chain disruption intelligence
+License-Expression: Apache-2.0
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: NOTICE
+Requires-Dist: fastapi<1,>=0.115
+Requires-Dist: uvicorn<1,>=0.34
+Requires-Dist: pydantic<3,>=2.10
+Requires-Dist: sqlalchemy<3,>=2.0.38
+Requires-Dist: psycopg[binary]<4,>=3.2
+Requires-Dist: networkx<4,>=3.4
+Requires-Dist: httpx<1,>=0.28
+Requires-Dist: python-multipart<1,>=0.0.20
+Provides-Extra: dev
+Requires-Dist: pytest<10,>=8.3; extra == "dev"
+Requires-Dist: pytest-cov<8,>=6; extra == "dev"
+Requires-Dist: ruff<1,>=0.11; extra == "dev"
+Requires-Dist: pip-audit<3,>=2.8; extra == "dev"
+Dynamic: license-file
+
+# SupplyGraph AI
+
+**A multi-tier supply-chain knowledge graph with disruption propagation and graph-grounded reasoning.**
+
+Trace a port, supplier, facility, route or component outage through the network. See when inventory runs out, which finished products become exposed, and which approved alternates preserve supply—then inspect the exact records supporting the result.
+
+Built for supplier-risk teams, procurement, network planners and operations analysts. **Local-first, open source, no paid API, and useful with AI completely disabled.**
+
+> Release candidate: the native application, computational tests, browser workflows, and measured benchmarks have been exercised. Docker and PostgreSQL/hosted CI verification remain release gates because Docker and GitHub repository-creation access are unavailable in the build environment. See [release checklist](docs/release-checklist.md). No passing hosted build is claimed.
+
+![SupplyGraph network workspace](docs/screenshots/network-overview.png)
+
+## The operational problem
+
+A direct-supplier list cannot explain whether a sub-tier disruption reaches a finished product, how inventory changes the timing, or whether an alternate actually protects the dependency. Simple reachability overstates exposure: downstream connections do not necessarily mean lost production.
+
+SupplyGraph models required dependency groups (AND), interchangeable qualified sources (OR), lead-time buffers and on-hand coverage. It separates the structural blast radius from nodes that reach shortage inside a specified outage window. Every simulated impact has a path and evidence IDs. Exposure is a deterministic planning estimate using synthetic demand and unit values, not a forecast of realized revenue loss.
+
+## What works
+
+- Atomic JSON ingestion of suppliers, sites, component/product SKUs, BOMs, routes, ports, facilities, customers, inventory and lead times, with a visible validation ledger.
+- Multi-tier dependencies and capacity/approval checks for alternate sources.
+- Single- and multi-node disruption analysis, time to shortage, product units/value exposure and alternate protection.
+- Queryable directed paths, upstream/downstream traversal, sampled betweenness and degree centrality.
+- Immutable temporal snapshots, provenance and full JSON export.
+- A Three.js dependency view and geographic globe, evidence drawers, searchable/paginated tables, keyboard controls and mobile layout.
+- Natural-language graph queries using a deterministic parser or an optional **local** Ollama/llama.cpp planner. Every business statement is computed and cited.
+- Versioned typed REST API, bundled local OpenAPI documentation, health/readiness checks, request tracing and structured logs.
+- Independent correctness fixtures, negative cases, model-failure isolation, browser tests and reproducible scale benchmarks.
+
+## Architecture
+
+<!-- diagram-id: supplygraph-architecture -->
+```mermaid
+flowchart LR
+  UI["React and Three.js"] --> API["FastAPI v1"]
+  API --> Import["Typed ingestion and validation"]
+  Import -->|atomic writes| DB["Immutable relational graph snapshots"]
+  DB -->|read-only credentials| Core["NetworkX deterministic analytics"]
+  API --> Plan["Typed read-only query plan"]
+  Local["Optional local Ollama or llama.cpp"] -.->|validated schema| Plan
+  Plan --> Core
+  Core --> Claims["Computed statements and evidence IDs"]
+  Claims --> UI
+```
+
+Business logic is in `src/supplygraph`, separate from HTTP routes and UI. PostgreSQL graph tables are used in Compose; SQLite supports native development. Typed local model plans can select read-only operations but cannot run SQL, shell commands or mutations. Numerical outputs and statement templates never come from free-form model text.
+
+**Stack:** Python 3.12+, FastAPI, Pydantic, NetworkX, SQLAlchemy, PostgreSQL/SQLite, React, TypeScript, Vite, Three.js, Ollama/llama.cpp, pytest, Vitest and Playwright. [Architecture](docs/architecture.md) · [data model](docs/data-model.md) · [AI design](docs/ai-design.md) · [ADRs](docs/adr).
+
+## Local quick start with Docker Compose
+
+Install an open-source Docker Engine and Compose implementation (Docker Desktop is optional and has its own terms), then:
+
+```sh
+git clone https://github.com/mercer14k/supplygraph-ai.git
+cd supplygraph-ai
+cp .env.example .env
+docker compose up --build
+```
+
+The remote URL is the intended publication location; until published, use the delivered local repository or extract the release bundle and start at `cd supplygraph-ai`.
+
+Open **http://localhost:8080**. API docs: **http://localhost:8041/docs**. PostgreSQL persists to a named local volume. No model, paid credentials or external integration is needed. Images/packages must be downloaded on first build; runtime assets are then local.
+
+The first run validates and loads the committed dataset and creates two inventory snapshots. The initial PORT-0001 scenario is a fourteen-day hypothetical closure of the Port of Kaohsiung. On the September 15 snapshot it exposes **40 products** and **27,181.15 product units** under the documented model assumptions.
+
+1. Run a different duration in **Scenario builder**.
+2. Inspect a product's path and evidence drawer.
+3. Ask `Upstream suppliers of PRD-0001` or `Impact of PORT-0001 for 14 days`.
+4. Switch September 1 / September 15 snapshots to see the inventory effect.
+5. Visit **Data & snapshots** to inspect validation warnings and export the graph.
+
+Stop with `docker compose down`; add `-v` only if you intentionally want to delete persisted demo data. The optional model profile is documented in [AI design](docs/ai-design.md).
+
+## Native development — macOS / Linux
+
+Requirements: Python 3.12+, Node.js 22+, pnpm 11.25.0. Native mode uses SQLite and needs no Docker.
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.lock
+python -m pip install --no-deps -e .
+uvicorn apps.api.main:app --host 127.0.0.1 --port 8041
+```
+
+In a second terminal:
+
+```sh
+cd apps/web
+corepack enable
+corepack prepare pnpm@11.25.0 --activate
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Open **http://localhost:5197**. API settings are environment variables; native startup does not automatically read `.env`. It defaults to `sqlite:///./supplygraph.db`, demo enabled, AI disabled and external ingestion disabled. For native AI, use the environment example in [AI design](docs/ai-design.md).
+
+## Native development — Windows PowerShell
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.lock
+.\.venv\Scripts\python.exe -m pip install --no-deps -e .
+.\.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8041
+```
+
+In another PowerShell terminal:
+
+```powershell
+cd apps/web
+corepack enable
+corepack prepare pnpm@11.25.0 --activate
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Set native options with `$env:AI_ENABLED="true"` and `$env:AI_BASE_URL="http://127.0.0.1:11434"` before starting the API. Windows commands are documented but were not executed on the macOS build host.
+
+## Data workflow
+
+The committed seed-42 dataset has **200 suppliers, 800 components, 80 products, 25 facilities, 40 sites, 8 ports, 24 routes, 30 customers**, and 800 inventory records. The generator includes unapproved/undersized alternates, zero stock, isolated suppliers and an unknown-use inventory warning. All entities are synthetic.
+
+```sh
+python -m supplygraph.data.generator --seed 42 --output data/sample/demo.json
+python -m supplygraph.data.generator --seed 73 --scale 10 --output data/generated/large.json
+```
+
+Use a new `snapshot_id` when importing changed contents. Records carry source IDs, ingestion timestamps, validation state and optional lineage. Imports reject the entire dataset if any required rule fails and retain a visible report. [JSON schema](data/schemas/dataset.schema.json) · [data dictionary](docs/data-model.md).
+
+Ingestion is off unless `WRITE_API_TOKEN` is configured on the server. Use your own private value in `.env` for Compose or the native process environment; restart the API, then enter it in the Data & snapshots form. Accepted uploads: `application/json`, `.json`, maximum 25 MiB. Never commit the token.
+
+## API examples
+
+```sh
+curl http://localhost:8041/api/v1/snapshots
+
+curl -X POST http://localhost:8041/api/v1/analysis/scenarios \
+  -H 'Content-Type: application/json' \
+  -d '{"snapshot_id":"DEMO-2026-09-15","disrupted_ids":["PORT-0001"],"duration_days":14}'
+
+curl -X POST http://localhost:8041/api/v1/analysis/query \
+  -H 'Content-Type: application/json' \
+  -d '{"snapshot_id":"DEMO-2026-09-15","question":"Impact of PORT-0001 for 14 days","use_llm":false}'
+
+curl 'http://localhost:8041/api/v1/evidence/PORT-0001?snapshot_id=DEMO-2026-09-15'
+```
+
+Read-only endpoints: `/snapshots`, `/overview`, `/nodes?limit=50&offset=0`, `/graph`, `/critical`, `/evidence/{id}`, `/validation-reports`, `/snapshots/{id}/export`. The `/analysis/*` POST endpoints do not mutate state.
+
+The sole mutation is `POST /api/v1/ingestions` with multipart `file`, `Authorization: Bearer ...`, and `Idempotency-Key`. A repeated key with identical content succeeds idempotently; conflicting content returns 409. Errors include a stable code, message, trace ID and optional validation details. Live schemas: `/docs` and `/openapi.json`.
+
+## Tests and evaluation
+
+```sh
+# Activated Python environment; pnpm available
+sh scripts/verify.sh
+python -m supplygraph.evaluation.benchmark --output output/benchmarks
+
+# API and frontend running:
+cd apps/web
+pnpm exec playwright install chromium
+pnpm test:e2e
+```
+
+Windows: run `python -m ruff check src apps/api tests`, `python -m pytest`, then `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build` inside `apps/web`. Browser tests can use `E2E_BASE_URL` for the Compose URL and `E2E_CHANNEL=chrome` for installed Chrome. [Exact screenshot instructions](docs/screenshots/README.md).
+
+The evaluation harness produces **JSON, CSV and Markdown** with fixed seeds, software/hardware metadata and explicit measurement boundaries. It checks ten graph-query intents, seven independently derived propagation cases, alternate correctness and citation integrity. [Methodology](docs/evaluation.md) · [measured outputs](docs/benchmarks/example/results.json).
+
+## Measured example, not a performance promise
+
+Actual run on **Apple M5, 10 logical CPUs, macOS 26.6.2, Python 3.12.14, NetworkX 3.7**, with no LLM in the performance path. Eight-layer DAG with a shared risk root; the 100k scenario affects 87,520 nodes. Five impact repetitions after warm-up, **memory tracing enabled**:
+
+| Nodes | Edges | Impact median | Impact p95 | Peak traced Python allocations |
+|---:|---:|---:|---:|---:|
+| 1,000 | 1,124 | 29.60 ms | 29.99 ms | 6.80 MiB |
+| 10,000 | 11,249 | 324.68 ms | 332.04 ms | 65.95 MiB |
+| 100,000 | 112,499 | 3,778.07 ms | 3,804.32 ms | 679.39 MiB |
+
+These are in-process microbenchmarks, excluding HTTP, PostgreSQL, browser and inference. Five samples do not establish an SLA. Full graph-build/centrality/path timings and caveats are in the [benchmark summary](docs/benchmarks/example/summary.md).
+
+The small golden set returned 100% query accuracy and impact precision/recall, exact alternate selection, and zero missing/invalid citations across 22 deterministic template claims. This does **not** establish real-world accuracy or arbitrary narrative hallucination detection.
+
+The installed **Qwen3-8B Q4_K_M**, Ollama **0.34.4**, also completed the ten local-planner smoke cases with 100% expected outcomes on this host. Model digest, configuration, per-query latency, abstentions and validation failures are recorded in [local model results](docs/benchmarks/local-qwen3/results.json). This is a small functional check, not a broad model-quality claim.
+
+## Limitations and security
+
+This is a transparent operational screening model. It assumes complete outages, constant demand, aggregate non-overlapping buffers and instant dedicated alternates. It does not allocate shared capacity, pool partial alternatives, model qualification time, optimize production, price lost sales, simulate recovery/backlogs, or establish disruption probabilities. BOM quantities inform supplied usage; there is no live MRP optimizer. Cycles are rejected. See [data model](docs/data-model.md).
+
+The 3D view is a bounded neighborhood; calculations use the selected full snapshot. There are no claimed ERP integrations, live risk feeds or real supplier relationships. Entity matching is conservative and can abstain. Large analyses can be dominated by evidence serialization and memory.
+
+The local demo intentionally has public read access on loopback and an optional administrative write token. Do not expose it directly to the internet. Compose uses scoped graph reader/writer roles, but production deployment still needs identity, authenticated reads, TLS, rate limits, secret management, migrations and backup/recovery controls. [Threat model](docs/security.md) · [security reporting](SECURITY.md).
+
+## Roadmap and contribution
+
+The next five priorities are capacity-constrained flow, bitemporal data/migrations, a larger independent evaluation corpus, end-to-end scale/admission control, and authenticated operator workflows. [Detailed roadmap](docs/roadmap.md).
+
+See [CONTRIBUTING](CONTRIBUTING.md) for checks and domain-fixture expectations and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for community standards. GitHub Actions definitions cover backend/PostgreSQL tests, frontend checks, dependency audits, Docker build/startup, and browser E2E. Hosted pass/fail results are only meaningful after publication and execution.
+
+## Repository and licenses
+
+```text
+apps/api/                   Thin ASGI entry point and container
+apps/web/                   React + TypeScript + Three.js application
+src/supplygraph/
+  domain/                   Schemas and deterministic graph algorithms
+  data/                     Generator, validation and persistence
+  services/                 Application orchestration and graph views
+  ai/                       Local adapters, typed planning, cited templates
+  evaluation/               Golden fixtures and benchmark harness
+  observability/            JSON logging and trace context
+data/sample/                Committed synthetic graph
+data/schemas/               JSON Schema
+tests/unit/                 Domain, schema and AI failure regression tests
+tests/integration/          API, database, ingestion and security boundaries
+tests/e2e/                  Desktop/mobile/browser accessibility workflows
+tests/benchmarks/           Evaluation output contract test
+scripts/                    Verification, Docker smoke test and DB roles
+docs/                       Architecture, assumptions, security, ADRs, results
+.github/workflows/          CI, builds and dependency checks
+```
+
+[Full tracked-file tree](docs/repository-tree.md) · [release checklist](docs/release-checklist.md).
+
+Project code and generated data are **Apache-2.0**. Material dependencies and model weights retain their own licenses, including psycopg's LGPL and font OFL terms. [Open-source dependency/license notes](docs/open-source-licenses.md). No paid API or proprietary cloud AI is required for any core feature.

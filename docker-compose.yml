@@ -1,0 +1,60 @@
+name: supplygraph-ai
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: supplygraph
+      POSTGRES_USER: supplygraph
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-supplygraph_local_demo}
+    volumes:
+      - graph-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/10-roles.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supplygraph -d supplygraph"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://graph_writer:${POSTGRES_PASSWORD:-supplygraph_local_demo}@db:5432/supplygraph
+      DATABASE_READ_URL: postgresql+psycopg://graph_reader:${POSTGRES_PASSWORD:-supplygraph_local_demo}@db:5432/supplygraph
+      DEMO_MODE: ${DEMO_MODE:-true}
+      WRITE_API_TOKEN: ${WRITE_API_TOKEN:-}
+      AI_ENABLED: ${AI_ENABLED:-false}
+      AI_RUNTIME: ${AI_RUNTIME:-ollama}
+      AI_MODEL: ${AI_MODEL:-qwen3:8b}
+      AI_BASE_URL: ${AI_BASE_URL:-http://ollama:11434}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports: ["127.0.0.1:8041:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready')"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 15s
+    init: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports: ["127.0.0.1:8080:80"]
+    depends_on:
+      api:
+        condition: service_healthy
+    security_opt: ["no-new-privileges:true"]
+  ollama:
+    image: ollama/ollama:0.34.4
+    profiles: [ai]
+    volumes: ["model-data:/root/.ollama"]
+    # No host port; the API reaches this service on the private Compose network.
+volumes:
+  graph-data:
+  model-data:

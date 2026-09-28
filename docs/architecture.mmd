@@ -1,0 +1,19 @@
+flowchart LR
+  UI["React and Three.js"]
+  API["FastAPI v1"]
+  Import["Typed ingestion and validation"]
+  DB["Immutable relational graph snapshots"]
+  Core["NetworkX deterministic analytics"]
+  Plan["Typed read-only query plan"]
+  Local["Optional local Ollama or llama.cpp"]
+  Claims["Computed statements and evidence IDs"]
+  UI --> API
+  API --> Import
+  Import -->|atomic writes| DB
+  DB -->|read-only credentials| Core
+  API --> Plan
+  Local -.->|validated schema| Plan
+  Plan --> Core
+  Core --> Claims
+  Claims --> UI
+%% portable-canonical-v2:eyJhY2Nlc3NpYmlsaXR5IjpudWxsLCJkYXRhIjp7ImRpcmVjdGlvbiI6IkxSIiwiZWRnZXMiOlt7ImZyb20iOiJVSSIsInRvIjoiQVBJIn0seyJmcm9tIjoiQVBJIiwidG8iOiJJbXBvcnQifSx7ImZyb20iOiJJbXBvcnQiLCJsYWJlbCI6ImF0b21pYyB3cml0ZXMiLCJ0byI6IkRCIn0seyJmcm9tIjoiREIiLCJsYWJlbCI6InJlYWQtb25seSBjcmVkZW50aWFscyIsInRvIjoiQ29yZSJ9LHsiZnJvbSI6IkFQSSIsInRvIjoiUGxhbiJ9LHsiYXJyb3ciOiItLi0-IiwiZnJvbSI6IkxvY2FsIiwibGFiZWwiOiJ2YWxpZGF0ZWQgc2NoZW1hIiwidG8iOiJQbGFuIn0seyJmcm9tIjoiUGxhbiIsInRvIjoiQ29yZSJ9LHsiZnJvbSI6IkNvcmUiLCJ0byI6IkNsYWltcyJ9LHsiZnJvbSI6IkNsYWltcyIsInRvIjoiVUkifV0sIm5vZGVzIjpbeyJpZCI6IlVJIiwibGFiZWwiOiJSZWFjdCBhbmQgVGhyZWUuanMifSx7ImlkIjoiQVBJIiwibGFiZWwiOiJGYXN0QVBJIHYxIn0seyJpZCI6IkltcG9ydCIsImxhYmVsIjoiVHlwZWQgaW5nZXN0aW9uIGFuZCB2YWxpZGF0aW9uIn0seyJpZCI6IkRCIiwibGFiZWwiOiJJbW11dGFibGUgcmVsYXRpb25hbCBncmFwaCBzbmFwc2hvdHMifSx7ImlkIjoiQ29yZSIsImxhYmVsIjoiTmV0d29ya1ggZGV0ZXJtaW5pc3RpYyBhbmFseXRpY3MifSx7ImlkIjoiUGxhbiIsImxhYmVsIjoiVHlwZWQgcmVhZC1vbmx5IHF1ZXJ5IHBsYW4ifSx7ImlkIjoiTG9jYWwiLCJsYWJlbCI6Ik9wdGlvbmFsIGxvY2FsIE9sbGFtYSBvciBsbGFtYS5jcHAifSx7ImlkIjoiQ2xhaW1zIiwibGFiZWwiOiJDb21wdXRlZCBzdGF0ZW1lbnRzIGFuZCBldmlkZW5jZSBJRHMifV19LCJkZXNjcmlwdGlvbiI6bnVsbCwiaWQiOiJhcmNoaXRlY3R1cmUiLCJraW5kIjoiZmxvd2NoYXJ0Iiwic291cmNlU2hhMjU2IjoiODdkOGQ1ZDgyZjY5MTgyMzc1YWQ0MGVjMmQwMjc3ZjU0YWJiMjM0MDJhZGIzYTlmNzEzODA3OGMxYjY3NjllMCIsInN0eWxlcyI6W10sInRpdGxlIjoiRXZpZGVuY2UtZmlyc3QgbG9jYWwgZ3JhcGggaW50ZWxsaWdlbmNlIiwidmVyc2lvbiI6MX0

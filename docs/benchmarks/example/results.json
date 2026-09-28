@@ -1,0 +1,201 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-27T21:17:47.801012+00:00",
+    "hardware": {
+      "os": "macOS-26.6.2-arm64-arm-64bit",
+      "cpu": "Apple M5",
+      "logical_cpus": 10,
+      "python": "3.12.14",
+      "networkx": "3.7",
+      "application_version": "0.1.0"
+    },
+    "seed": 42,
+    "model": "none",
+    "runtime": "none",
+    "template": "query-plan-v1",
+    "performance_topology": "eight-layer DAG with shared risk root; broad fan-out; distinct from synthetic electronics demo",
+    "memory_method": "tracemalloc Python allocation peak, excludes native/GPU memory",
+    "timing_note": "tracemalloc enabled; five warm-cache impact repetitions by default; microbenchmark, not end-to-end throughput"
+  },
+  "evaluation": {
+    "impact_precision": 1.0,
+    "impact_recall": 1.0,
+    "query_accuracy": 1.0,
+    "unsupported_claim_rate": 0.0,
+    "claim_count": 22,
+    "unsupported_claim_definition": "Missing/invalid citation IDs in deterministic templates; not general hallucination detection.",
+    "alternate_path_correctness": 1,
+    "impact_cases": [
+      {
+        "roots": [
+          "SUP-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "SUP-A"
+        ],
+        "days": 3,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "FAC-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "PORT-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "RTE-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "CMP-B"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "SUP-A",
+          "SUP-B"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      }
+    ],
+    "query_cases": [
+      {
+        "question": "Impact of SUP-A for 7 days",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.34,
+        "validation_failures": 0
+      },
+      {
+        "question": "What is the outage impact at Primary source for 7 days?",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.05,
+        "validation_failures": 0
+      },
+      {
+        "question": "Upstream suppliers of PRD-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.18,
+        "validation_failures": 0
+      },
+      {
+        "question": "Downstream dependents of PORT-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.04,
+        "validation_failures": 0
+      },
+      {
+        "question": "Path from SUP-A to PRD-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.02,
+        "validation_failures": 0
+      },
+      {
+        "question": "Path from PRD-A to SUP-A",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 0.02,
+        "validation_failures": 0
+      },
+      {
+        "question": "Which nodes have critical centrality?",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.21,
+        "validation_failures": 0
+      },
+      {
+        "question": "Impact of missing SUP-Z",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 0.01,
+        "validation_failures": 0
+      },
+      {
+        "question": "Who will win the election?",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 0.01,
+        "validation_failures": 0
+      },
+      {
+        "question": "Impact of SUP-A-9999",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 0.01,
+        "validation_failures": 0
+      }
+    ]
+  },
+  "performance": [
+    {
+      "nodes": 1000,
+      "edges": 1124,
+      "affected": 895,
+      "repeats": 5,
+      "generate_ms": 23.95,
+      "graph_build_ms": 4.54,
+      "impact_p50_ms": 29.6,
+      "impact_p95_ms": 29.99,
+      "sampled_centrality_ms": 10.46,
+      "path_ms": 0.05,
+      "peak_traced_python_mib": 6.8
+    },
+    {
+      "nodes": 10000,
+      "edges": 11249,
+      "affected": 8770,
+      "repeats": 5,
+      "generate_ms": 198.2,
+      "graph_build_ms": 67.45,
+      "impact_p50_ms": 324.68,
+      "impact_p95_ms": 332.04,
+      "sampled_centrality_ms": 179.29,
+      "path_ms": 0.16,
+      "peak_traced_python_mib": 65.95
+    },
+    {
+      "nodes": 100000,
+      "edges": 112499,
+      "affected": 87520,
+      "repeats": 5,
+      "generate_ms": 2228.67,
+      "graph_build_ms": 767.24,
+      "impact_p50_ms": 3778.07,
+      "impact_p95_ms": 3804.32,
+      "sampled_centrality_ms": 3830.14,
+      "path_ms": 1.11,
+      "peak_traced_python_mib": 679.39
+    }
+  ]
+}

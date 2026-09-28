@@ -1,0 +1,4 @@
+nodes,edges,affected,repeats,generate_ms,graph_build_ms,impact_p50_ms,impact_p95_ms,sampled_centrality_ms,path_ms,peak_traced_python_mib
+1000,1124,895,5,23.95,4.54,29.6,29.99,10.46,0.05,6.8
+10000,11249,8770,5,198.2,67.45,324.68,332.04,179.29,0.16,65.95
+100000,112499,87520,5,2228.67,767.24,3778.07,3804.32,3830.14,1.11,679.39

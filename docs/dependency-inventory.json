@@ -1,0 +1,398 @@
+{
+  "scope": "Installed package metadata; not a full container SBOM",
+  "packages": [
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "anyio",
+      "version": "4.15.1",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "boolean.py",
+      "version": "5.0",
+      "license_metadata": "BSD-2-Clause"
+    },
+    {
+      "name": "CacheControl",
+      "version": "0.14.4",
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22",
+      "license_metadata": "MPL-2.0"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.1",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "coverage",
+      "version": "7.16.2",
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "cyclonedx-python-lib",
+      "version": "11.12.0",
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "license_metadata": "PSFL"
+    },
+    {
+      "name": "fastapi",
+      "version": "0.141.1",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "filelock",
+      "version": "4.0.4",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.0",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "license-expression",
+      "version": "30.4.4",
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "4.2.0",
+      "license_metadata": "MIT License"
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2",
+      "license_metadata": "MIT License"
+    },
+    {
+      "name": "msgpack",
+      "version": "1.2.2",
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "networkx",
+      "version": "3.7",
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "packageurl-python",
+      "version": "0.17.6",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "license_metadata": "Apache-2.0 OR BSD-2-Clause"
+    },
+    {
+      "name": "pip",
+      "version": "25.0.1",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "pip-requirements-parser",
+      "version": "32.0.1",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "pip_api",
+      "version": "0.0.35",
+      "license_metadata": "Apache License\n                        Version 2.0, January 2004\n                     https://www.apache.org/licenses/\n\nTERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n1. Definitions.\n\n "
+    },
+    {
+      "name": "pip_audit",
+      "version": "2.10.1",
+      "license_metadata": "Apache Software License"
+    },
+    {
+      "name": "platformdirs",
+      "version": "4.12.0",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "psycopg",
+      "version": "3.3.6",
+      "license_metadata": "LGPL-3.0-only"
+    },
+    {
+      "name": "psycopg-binary",
+      "version": "3.3.6",
+      "license_metadata": "LGPL-3.0-only"
+    },
+    {
+      "name": "py-serializable",
+      "version": "2.1.0",
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.13.5",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.46.5",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0",
+      "license_metadata": "BSD-2-Clause"
+    },
+    {
+      "name": "pyparsing",
+      "version": "3.3.3",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "pytest",
+      "version": "9.1.1",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "pytest-cov",
+      "version": "7.1.0",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "python-multipart",
+      "version": "0.0.32",
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2",
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "rich",
+      "version": "15.0.0",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "ruff",
+      "version": "0.16.9",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "sortedcontainers",
+      "version": "2.4.0",
+      "license_metadata": "Apache 2.0"
+    },
+    {
+      "name": "SQLAlchemy",
+      "version": "2.1.1",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "starlette",
+      "version": "1.7.0",
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "tomli",
+      "version": "2.4.1",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "tomli_w",
+      "version": "1.2.0",
+      "license_metadata": "MIT License"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "license_metadata": "PSF-2.0"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.54.0",
+      "license_metadata": "BSD-3-Clause"
+    }
+  ],
+  "frontend": [
+    {
+      "name": "@fontsource-variable/inter",
+      "version": "5.3.0",
+      "license": "OFL-1.1",
+      "scope": "production"
+    },
+    {
+      "name": "@fontsource-variable/space-grotesk",
+      "version": "5.3.0",
+      "license": "OFL-1.1",
+      "scope": "production"
+    },
+    {
+      "name": "lucide-react",
+      "version": "0.468.0",
+      "license": "ISC",
+      "scope": "production"
+    },
+    {
+      "name": "react",
+      "version": "19.3.0",
+      "license": "MIT",
+      "scope": "production"
+    },
+    {
+      "name": "react-dom",
+      "version": "19.3.0",
+      "license": "MIT",
+      "scope": "production"
+    },
+    {
+      "name": "three",
+      "version": "0.180.0",
+      "license": "MIT",
+      "scope": "production"
+    },
+    {
+      "name": "@axe-core/playwright",
+      "version": "4.13.0",
+      "license": "MPL-2.0",
+      "scope": "development"
+    },
+    {
+      "name": "@playwright/test",
+      "version": "1.63.0",
+      "license": "Apache-2.0",
+      "scope": "development"
+    },
+    {
+      "name": "@types/react",
+      "version": "19.3.0",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "19.3.0",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "@types/three",
+      "version": "0.180.0",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "version": "4.7.0",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "eslint",
+      "version": "9.39.5",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "eslint-plugin-react-hooks",
+      "version": "5.2.0",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "globals",
+      "version": "16.5.0",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "prettier",
+      "version": "3.9.9",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "swagger-ui-dist",
+      "version": "5.33.0",
+      "license": "Apache-2.0",
+      "scope": "development"
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.3",
+      "license": "Apache-2.0",
+      "scope": "development"
+    },
+    {
+      "name": "typescript-eslint",
+      "version": "8.70.1",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "vite",
+      "version": "6.4.3",
+      "license": "MIT",
+      "scope": "development"
+    },
+    {
+      "name": "vitest",
+      "version": "4.1.11",
+      "license": "MIT",
+      "scope": "development"
+    }
+  ]
+}

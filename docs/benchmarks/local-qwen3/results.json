@@ -1,0 +1,808 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-27T21:24:32.235119+00:00",
+    "hardware": {
+      "os": "macOS-26.6.2-arm64-arm-64bit",
+      "cpu": "Apple M5",
+      "logical_cpus": 10,
+      "python": "3.12.14",
+      "networkx": "3.7",
+      "application_version": "0.1.0"
+    },
+    "seed": 42,
+    "model": "qwen3:8b",
+    "runtime": "ollama",
+    "template": "query-plan-v1",
+    "performance_topology": "eight-layer DAG with shared risk root; broad fan-out; distinct from synthetic electronics demo",
+    "memory_method": "tracemalloc Python allocation peak, excludes native/GPU memory",
+    "timing_note": "tracemalloc enabled; five warm-cache impact repetitions by default; microbenchmark, not end-to-end throughput"
+  },
+  "evaluation": {
+    "impact_precision": 1.0,
+    "impact_recall": 1.0,
+    "query_accuracy": 1.0,
+    "unsupported_claim_rate": 0.0,
+    "claim_count": 22,
+    "unsupported_claim_definition": "Missing/invalid citation IDs in deterministic templates; not general hallucination detection.",
+    "alternate_path_correctness": 1,
+    "impact_cases": [
+      {
+        "roots": [
+          "SUP-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "SUP-A"
+        ],
+        "days": 3,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "FAC-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "PORT-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "RTE-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "CMP-B"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "SUP-A",
+          "SUP-B"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      }
+    ],
+    "query_cases": [
+      {
+        "question": "Impact of SUP-A for 7 days",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.33,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "impact",
+              "node_id": "SUP-A",
+              "target_id": null,
+              "duration_days": 7.0
+            }
+          ],
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 0.33
+        }
+      },
+      {
+        "question": "What is the outage impact at Primary source for 7 days?",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.05,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "impact",
+              "node_id": "SUP-A",
+              "target_id": null,
+              "duration_days": 7.0
+            }
+          ],
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 0.05
+        }
+      },
+      {
+        "question": "Upstream suppliers of PRD-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.18,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "upstream",
+              "node_id": "PRD-A",
+              "target_id": null,
+              "duration_days": 14
+            }
+          ],
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 0.18
+        }
+      },
+      {
+        "question": "Downstream dependents of PORT-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.04,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "downstream",
+              "node_id": "PORT-A",
+              "target_id": null,
+              "duration_days": 14
+            }
+          ],
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 0.04
+        }
+      },
+      {
+        "question": "Path from SUP-A to PRD-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.02,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "path",
+              "node_id": "SUP-A",
+              "target_id": "PRD-A",
+              "duration_days": 14
+            }
+          ],
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 0.02
+        }
+      },
+      {
+        "question": "Path from PRD-A to SUP-A",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 0.02,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "path",
+              "node_id": "PRD-A",
+              "target_id": "SUP-A",
+              "duration_days": 14
+            }
+          ],
+          "latency_ms": 0.02
+        }
+      },
+      {
+        "question": "Which nodes have critical centrality?",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 0.2,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "critical",
+              "node_id": null,
+              "target_id": null,
+              "duration_days": 14
+            }
+          ],
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 0.2
+        }
+      },
+      {
+        "question": "Impact of missing SUP-Z",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 0.01,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [],
+          "latency_ms": 0.01
+        }
+      },
+      {
+        "question": "Who will win the election?",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 0.01,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [],
+          "latency_ms": 0.01
+        }
+      },
+      {
+        "question": "Impact of SUP-A-9999",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 0.01,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "none",
+          "model": "none",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [],
+          "latency_ms": 0.01
+        }
+      }
+    ]
+  },
+  "local_model_evaluation": {
+    "impact_precision": 1.0,
+    "impact_recall": 1.0,
+    "query_accuracy": 1.0,
+    "unsupported_claim_rate": 0.0,
+    "claim_count": 22,
+    "unsupported_claim_definition": "Missing/invalid citation IDs in deterministic templates; not general hallucination detection.",
+    "alternate_path_correctness": 1,
+    "impact_cases": [
+      {
+        "roots": [
+          "SUP-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "SUP-A"
+        ],
+        "days": 3,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "FAC-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "PORT-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "RTE-A"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "CMP-B"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      },
+      {
+        "roots": [
+          "SUP-A",
+          "SUP-B"
+        ],
+        "days": 7,
+        "correct": true,
+        "units_correct": true
+      }
+    ],
+    "query_cases": [
+      {
+        "question": "Impact of SUP-A for 7 days",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 2249.0,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "impact",
+              "node_id": "SUP-A",
+              "target_id": null,
+              "duration_days": 7.0
+            }
+          ],
+          "runtime_model": "qwen3:8b",
+          "tokens": 22,
+          "prompt_tokens": 140,
+          "runtime_version": "0.34.4",
+          "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+          "model_details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3",
+            "families": [
+              "qwen3"
+            ],
+            "parameter_size": "8.2B",
+            "quantization_level": "Q4_K_M",
+            "context_length": 40960,
+            "embedding_length": 4096
+          },
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 2249.0
+        }
+      },
+      {
+        "question": "What is the outage impact at Primary source for 7 days?",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 1245.24,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "impact",
+              "node_id": "SUP-A",
+              "target_id": null,
+              "duration_days": 7.0
+            }
+          ],
+          "runtime_model": "qwen3:8b",
+          "tokens": 22,
+          "prompt_tokens": 144,
+          "runtime_version": "0.34.4",
+          "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+          "model_details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3",
+            "families": [
+              "qwen3"
+            ],
+            "parameter_size": "8.2B",
+            "quantization_level": "Q4_K_M",
+            "context_length": 40960,
+            "embedding_length": 4096
+          },
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 1245.24
+        }
+      },
+      {
+        "question": "Upstream suppliers of PRD-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 989.98,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "upstream",
+              "node_id": "PRD-A",
+              "target_id": null,
+              "duration_days": 14
+            }
+          ],
+          "runtime_model": "qwen3:8b",
+          "tokens": 17,
+          "prompt_tokens": 141,
+          "runtime_version": "0.34.4",
+          "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+          "model_details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3",
+            "families": [
+              "qwen3"
+            ],
+            "parameter_size": "8.2B",
+            "quantization_level": "Q4_K_M",
+            "context_length": 40960,
+            "embedding_length": 4096
+          },
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 989.98
+        }
+      },
+      {
+        "question": "Downstream dependents of PORT-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 939.34,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "downstream",
+              "node_id": "PORT-A",
+              "target_id": null,
+              "duration_days": 14
+            }
+          ],
+          "runtime_model": "qwen3:8b",
+          "tokens": 16,
+          "prompt_tokens": 139,
+          "runtime_version": "0.34.4",
+          "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+          "model_details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3",
+            "families": [
+              "qwen3"
+            ],
+            "parameter_size": "8.2B",
+            "quantization_level": "Q4_K_M",
+            "context_length": 40960,
+            "embedding_length": 4096
+          },
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 939.34
+        }
+      },
+      {
+        "question": "Path from SUP-A to PRD-A",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 1374.86,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "path",
+              "node_id": "SUP-A",
+              "target_id": "PRD-A",
+              "duration_days": 14
+            }
+          ],
+          "runtime_model": "qwen3:8b",
+          "tokens": 24,
+          "prompt_tokens": 162,
+          "runtime_version": "0.34.4",
+          "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+          "model_details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3",
+            "families": [
+              "qwen3"
+            ],
+            "parameter_size": "8.2B",
+            "quantization_level": "Q4_K_M",
+            "context_length": 40960,
+            "embedding_length": 4096
+          },
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 1374.86
+        }
+      },
+      {
+        "question": "Path from PRD-A to SUP-A",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 1345.17,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "path",
+              "node_id": "PRD-A",
+              "target_id": "SUP-A",
+              "duration_days": 14
+            }
+          ],
+          "runtime_model": "qwen3:8b",
+          "tokens": 24,
+          "prompt_tokens": 162,
+          "runtime_version": "0.34.4",
+          "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+          "model_details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3",
+            "families": [
+              "qwen3"
+            ],
+            "parameter_size": "8.2B",
+            "quantization_level": "Q4_K_M",
+            "context_length": 40960,
+            "embedding_length": 4096
+          },
+          "latency_ms": 1345.17
+        }
+      },
+      {
+        "question": "Which nodes have critical centrality?",
+        "correct": true,
+        "status": "answered",
+        "latency_ms": 884.95,
+        "validation_failures": 0,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 0,
+          "validation_failures": 0,
+          "tool_calls": [
+            {
+              "operation": "critical",
+              "node_id": null,
+              "target_id": null,
+              "duration_days": 14.0
+            }
+          ],
+          "runtime_model": "qwen3:8b",
+          "tokens": 15,
+          "prompt_tokens": 119,
+          "runtime_version": "0.34.4",
+          "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+          "model_details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3",
+            "families": [
+              "qwen3"
+            ],
+            "parameter_size": "8.2B",
+            "quantization_level": "Q4_K_M",
+            "context_length": 40960,
+            "embedding_length": 4096
+          },
+          "input_source_ids": [
+            "golden-v1"
+          ],
+          "latency_ms": 884.95
+        }
+      },
+      {
+        "question": "Impact of missing SUP-Z",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 2469.46,
+        "validation_failures": 2,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 1,
+          "validation_failures": 2,
+          "tool_calls": [],
+          "latency_ms": 2469.46
+        }
+      },
+      {
+        "question": "Who will win the election?",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 2446.31,
+        "validation_failures": 2,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 1,
+          "validation_failures": 2,
+          "tool_calls": [],
+          "latency_ms": 2446.31
+        }
+      },
+      {
+        "question": "Impact of SUP-A-9999",
+        "correct": true,
+        "status": "abstained",
+        "latency_ms": 2956.95,
+        "validation_failures": 2,
+        "telemetry": {
+          "template_version": "query-plan-v1",
+          "data_version": "GOLDEN",
+          "runtime": "ollama",
+          "model": "qwen3:8b",
+          "seed": 42,
+          "temperature": 0,
+          "retries": 1,
+          "validation_failures": 2,
+          "tool_calls": [],
+          "latency_ms": 2956.95
+        }
+      }
+    ]
+  },
+  "performance": [
+    {
+      "nodes": 1000,
+      "edges": 1124,
+      "affected": 895,
+      "repeats": 5,
+      "generate_ms": 21.53,
+      "graph_build_ms": 4.16,
+      "impact_p50_ms": 28.28,
+      "impact_p95_ms": 29.44,
+      "sampled_centrality_ms": 10.56,
+      "path_ms": 0.05,
+      "peak_traced_python_mib": 6.82
+    }
+  ]
+}

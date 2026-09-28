@@ -1,0 +1,330 @@
+{
+  "$defs": {
+    "Edge": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "ingested_at": {
+          "format": "date-time",
+          "title": "Ingested At",
+          "type": "string"
+        },
+        "validation_status": {
+          "const": "valid",
+          "default": "valid",
+          "title": "Validation Status",
+          "type": "string"
+        },
+        "lineage": {
+          "additionalProperties": true,
+          "title": "Lineage",
+          "type": "object"
+        },
+        "source": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "supply",
+            "bom",
+            "transport",
+            "manufacture",
+            "tier",
+            "demand",
+            "ownership"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "group": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Group",
+          "type": "string"
+        },
+        "approved": {
+          "default": true,
+          "title": "Approved",
+          "type": "boolean"
+        },
+        "capacity": {
+          "default": 1,
+          "minimum": 0,
+          "title": "Capacity",
+          "type": "number"
+        },
+        "required_capacity": {
+          "default": 1,
+          "exclusiveMinimum": 0,
+          "title": "Required Capacity",
+          "type": "number"
+        },
+        "lead_time_days": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Lead Time Days",
+          "type": "number"
+        },
+        "quantity": {
+          "default": 1,
+          "exclusiveMinimum": 0,
+          "title": "Quantity",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "ingested_at",
+        "source",
+        "target",
+        "kind",
+        "group"
+      ],
+      "title": "Edge",
+      "type": "object"
+    },
+    "Inventory": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "ingested_at": {
+          "format": "date-time",
+          "title": "Ingested At",
+          "type": "string"
+        },
+        "validation_status": {
+          "const": "valid",
+          "default": "valid",
+          "title": "Validation Status",
+          "type": "string"
+        },
+        "lineage": {
+          "additionalProperties": true,
+          "title": "Lineage",
+          "type": "object"
+        },
+        "node_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "facility_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Facility Id",
+          "type": "string"
+        },
+        "on_hand": {
+          "minimum": 0,
+          "title": "On Hand",
+          "type": "number"
+        },
+        "daily_usage": {
+          "minimum": 0,
+          "title": "Daily Usage",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "ingested_at",
+        "node_id",
+        "facility_id",
+        "on_hand",
+        "daily_usage"
+      ],
+      "title": "Inventory",
+      "type": "object"
+    },
+    "Kind": {
+      "enum": [
+        "supplier",
+        "site",
+        "component",
+        "product",
+        "facility",
+        "port",
+        "route",
+        "customer"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "Node": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "ingested_at": {
+          "format": "date-time",
+          "title": "Ingested At",
+          "type": "string"
+        },
+        "validation_status": {
+          "const": "valid",
+          "default": "valid",
+          "title": "Validation Status",
+          "type": "string"
+        },
+        "lineage": {
+          "additionalProperties": true,
+          "title": "Lineage",
+          "type": "object"
+        },
+        "kind": {
+          "$ref": "#/$defs/Kind"
+        },
+        "name": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "country": {
+          "default": "",
+          "maxLength": 80,
+          "title": "Country",
+          "type": "string"
+        },
+        "tier": {
+          "default": 0,
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Tier",
+          "type": "integer"
+        },
+        "daily_demand": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Daily Demand",
+          "type": "number"
+        },
+        "unit_value": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Unit Value",
+          "type": "number"
+        },
+        "latitude": {
+          "default": 0,
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "longitude": {
+          "default": 0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "ingested_at",
+        "kind",
+        "name"
+      ],
+      "title": "Node",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "snapshot_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+      "title": "Snapshot Id",
+      "type": "string"
+    },
+    "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$",
+      "title": "Source Id",
+      "type": "string"
+    },
+    "effective_at": {
+      "format": "date-time",
+      "title": "Effective At",
+      "type": "string"
+    },
+    "seed": {
+      "default": 42,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/Node"
+      },
+      "maxItems": 200000,
+      "minItems": 1,
+      "title": "Nodes",
+      "type": "array"
+    },
+    "edges": {
+      "items": {
+        "$ref": "#/$defs/Edge"
+      },
+      "maxItems": 800000,
+      "title": "Edges",
+      "type": "array"
+    },
+    "inventories": {
+      "items": {
+        "$ref": "#/$defs/Inventory"
+      },
+      "maxItems": 200000,
+      "title": "Inventories",
+      "type": "array"
+    }
+  },
+  "required": [
+    "snapshot_id",
+    "source_id",
+    "effective_at",
+    "nodes",
+    "edges"
+  ],
+  "title": "Dataset",
+  "type": "object"
+}

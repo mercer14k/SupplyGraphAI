@@ -1,0 +1,90 @@
+{
+  "version": 2,
+  "title": "SupplyGraph architecture",
+  "diagrams": [
+    {
+      "id": "architecture",
+      "title": "Evidence-first local graph intelligence",
+      "kind": "flowchart",
+      "data": {
+        "direction": "LR",
+        "nodes": [
+          {
+            "id": "UI",
+            "label": "React and Three.js"
+          },
+          {
+            "id": "API",
+            "label": "FastAPI v1"
+          },
+          {
+            "id": "Import",
+            "label": "Typed ingestion and validation"
+          },
+          {
+            "id": "DB",
+            "label": "Immutable relational graph snapshots"
+          },
+          {
+            "id": "Core",
+            "label": "NetworkX deterministic analytics"
+          },
+          {
+            "id": "Plan",
+            "label": "Typed read-only query plan"
+          },
+          {
+            "id": "Local",
+            "label": "Optional local Ollama or llama.cpp"
+          },
+          {
+            "id": "Claims",
+            "label": "Computed statements and evidence IDs"
+          }
+        ],
+        "edges": [
+          {
+            "from": "UI",
+            "to": "API"
+          },
+          {
+            "from": "API",
+            "to": "Import"
+          },
+          {
+            "from": "Import",
+            "to": "DB",
+            "label": "atomic writes"
+          },
+          {
+            "from": "DB",
+            "to": "Core",
+            "label": "read-only credentials"
+          },
+          {
+            "from": "API",
+            "to": "Plan"
+          },
+          {
+            "from": "Local",
+            "to": "Plan",
+            "label": "validated schema",
+            "arrow": "-.->"
+          },
+          {
+            "from": "Plan",
+            "to": "Core"
+          },
+          {
+            "from": "Core",
+            "to": "Claims"
+          },
+          {
+            "from": "Claims",
+            "to": "UI"
+          }
+        ]
+      }
+    }
+  ]
+}
